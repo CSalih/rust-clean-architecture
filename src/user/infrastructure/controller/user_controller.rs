@@ -1,11 +1,9 @@
-use actix_web::{HttpResponse, Responder, web};
+use actix_web::web;
+
+use crate::user::infrastructure::controller::add_user_handler::add_user_handler;
 
 pub fn add_routes(config: &mut web::ServiceConfig) {
     config
-        .route("/api/v1/users", web::get().to(add_user_handler));
+        .route("/api/v1/users/{username}", web::post().to(add_user_handler));
 }
 
-async fn add_user_handler() -> impl Responder  {
-    // TODO: wrong http status but funny
-    HttpResponse::ExpectationFailed().body("To be implemented!")
-}
