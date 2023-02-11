@@ -1,7 +1,7 @@
 use actix_web::HttpResponse;
 
 use crate::common::presenter::Presenter;
-use crate::user::domain::user::User;
+use crate::user::domain::model::User;
 
 pub struct UserHttpResponsePresenter {
     response: Option<HttpResponse>,

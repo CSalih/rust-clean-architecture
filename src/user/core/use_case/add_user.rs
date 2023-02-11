@@ -1,6 +1,6 @@
 use crate::common::presenter::Presenter;
 use crate::common::problem::Problem;
-use crate::user::domain::user::User;
+use crate::user::domain::model::User;
 
 pub trait AddUserUseCase {
     fn execute(&mut self, command: &AddUserCommand, presenter: &mut impl Presenter<User>);

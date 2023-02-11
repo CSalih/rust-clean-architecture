@@ -1,6 +1,6 @@
 use crate::common::presenter::Presenter;
 use crate::user::core::use_case::add_user::{AddUserCommand, AddUserGateway, AddUserUseCase, UserExistsGateway, UserExistsQuery};
-use crate::user::domain::user::User;
+use crate::user::domain::model::User;
 
 pub struct AddUserInterceptor<'a> {
     user_exists_gateway: &'a dyn UserExistsGateway,

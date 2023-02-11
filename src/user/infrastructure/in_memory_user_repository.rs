@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::common::problem::Problem;
 use crate::user::core::use_case::add_user::{AddUserCommand, AddUserGateway, UserExistsGateway, UserExistsQuery};
-use crate::user::domain::user::User;
+use crate::user::domain::model::User;
 
 pub struct InMemoryUserRepository {
     data: HashMap<String, User>,
