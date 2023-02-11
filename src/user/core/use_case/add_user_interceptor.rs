@@ -4,18 +4,18 @@ use crate::user::domain::user::User;
 
 pub struct AddUserInterceptor<'a> {
     user_exists_gateway: &'a dyn UserExistsGateway,
-    add_user_gateway: &'a dyn AddUserGateway,
+    add_user_gateway: &'a mut dyn AddUserGateway,
 }
 
 impl<'a> AddUserInterceptor<'a> {
-    pub fn new(add_user_gateway: &'a dyn AddUserGateway, user_exists_gateway: &'a dyn UserExistsGateway) -> Self {
+    pub fn new(add_user_gateway: &'a mut dyn AddUserGateway, user_exists_gateway: &'a dyn UserExistsGateway) -> Self {
         AddUserInterceptor { add_user_gateway, user_exists_gateway }
     }
 }
 
 impl<'a> AddUserUseCase for AddUserInterceptor<'a> {
-    fn execute(&self, command: AddUserCommand, presenter: &mut impl Presenter<User>) {
-        let user_exists = self.user_exists_gateway.exists(UserExistsQuery::new(
+    fn execute(&mut self, command: &AddUserCommand, presenter: &mut impl Presenter<User>) {
+        let user_exists = self.user_exists_gateway.exists(&UserExistsQuery::new(
             String::from(&command.username)
         ));
         if user_exists {
@@ -23,7 +23,7 @@ impl<'a> AddUserUseCase for AddUserInterceptor<'a> {
             return;
         }
 
-        let user_result = self.add_user_gateway.add_user(command);
+        let user_result = self.add_user_gateway.add_user(&command);
         match user_result {
             Ok(user) => presenter.success(user),
             Err(_) => presenter.error(String::from("err")),

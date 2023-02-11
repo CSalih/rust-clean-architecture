@@ -3,12 +3,12 @@ use crate::common::problem::Problem;
 use crate::user::domain::user::User;
 
 pub trait AddUserUseCase {
-    fn execute(&self, command: AddUserCommand, presenter: &mut impl Presenter<User>);
+    fn execute(&mut self, command: &AddUserCommand, presenter: &mut impl Presenter<User>);
 }
 
 // Add gateway
 pub trait AddUserGateway {
-    fn add_user(&self, command: AddUserCommand) -> Result<User, Problem>;
+    fn add_user(&mut self, command: &AddUserCommand) -> Result<User, Problem>;
 }
 
 pub struct AddUserCommand {
@@ -24,7 +24,7 @@ impl AddUserCommand {
 
 // Exits gateway
 pub trait UserExistsGateway {
-    fn exists(&self, query: UserExistsQuery) -> bool;
+    fn exists(&self, query: &UserExistsQuery) -> bool;
 }
 
 pub struct UserExistsQuery {
