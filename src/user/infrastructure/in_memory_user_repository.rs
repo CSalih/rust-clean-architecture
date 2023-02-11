@@ -32,7 +32,7 @@ impl AddUserGateway for InMemoryUserRepository {
 }
 
 impl UserExistsGateway for InMemoryUserRepository {
-    fn exists(&self, _: &UserExistsQuery) -> bool {
-        return false;
+    fn exists(&self, query: &UserExistsQuery) -> bool {
+        self.data.contains_key(&query.username)
     }
 }
