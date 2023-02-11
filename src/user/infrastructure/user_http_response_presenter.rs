@@ -20,13 +20,9 @@ impl UserHttpResponsePresenter {
 
 impl Presenter<User> for UserHttpResponsePresenter {
     fn success(&mut self, data: User) {
-        self.response = Some(
-            HttpResponse::Created().body(String::from("Username: ") + &*String::from(&data.username))
-        );
+        self.response = Some(HttpResponse::Created().json(&data));
     }
     fn error(&mut self, error: String) {
-        self.response = Some(
-            HttpResponse::InternalServerError().body(error)
-        );
+        self.response = Some(HttpResponse::InternalServerError().body(error));
     }
 }
